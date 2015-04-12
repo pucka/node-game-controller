@@ -20,7 +20,7 @@ Virtual gamepad hub class
     }
 
     virtual_gamepad_hub.prototype.connectGamepad = function(callback) {
-      var freeSlot, padId;
+      /*var freeSlot, padId;
       padId = 0;
       freeSlot = false;
       while (!freeSlot && padId < 1) {
@@ -50,7 +50,17 @@ Virtual gamepad hub class
         }, function(err) {
           return callback(-1);
         });
-      }
+      }*/
+
+        if (this.gamepads.length === 0) {
+            this.gamepads[0] = new gamepad();
+        }
+
+        return this.gamepads[0].connect(function() {
+            return callback(0);
+        }, function(err) {
+            return callback(-1);
+        });
     };
 
     virtual_gamepad_hub.prototype.disconnectGamepad = function(padId, callback) {
