@@ -14,7 +14,7 @@ Virtual gamepad hub class
     function virtual_gamepad_hub() {
       var i, j;
       this.gamepads = [];
-      for (i = j = 0; j <= 3; i = ++j) {
+      for (i = j = 0; j < 1; i = ++j) {
         this.gamepads[i] = void 0;
       }
     }
@@ -23,13 +23,24 @@ Virtual gamepad hub class
       var freeSlot, padId;
       padId = 0;
       freeSlot = false;
-      while (!freeSlot && padId < 4) {
+      while (!freeSlot && padId < 1) {
         if (!this.gamepads[padId]) {
           freeSlot = true;
         } else {
-          padId++;
+            var self = this;
+            return this.disconnectGamepad(padId, function() {
+
+                self.gamepads[padId] = new gamepad();
+                return self.gamepads[padId].connect(function() {
+                    return callback(padId);
+                }, function(err) {
+                    return callback(-1);
+                });
+
+            });
         }
       }
+
       if (!freeSlot) {
         return callback(-1);
       } else {
