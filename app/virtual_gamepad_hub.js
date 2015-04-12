@@ -52,7 +52,7 @@ Virtual gamepad hub class
         });
       }*/
 
-        if (this.gamepads.length === 0) {
+        if (this.gamepads[0] == void 0) {
             this.gamepads[0] = new gamepad();
         }
 
