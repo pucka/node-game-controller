@@ -29,10 +29,11 @@ Virtual gamepad application
   app.use(express["static"](__dirname + '/public'));
 
   io.on('connection', function(socket) {
+
     socket.on('disconnect', function() {
-      /*if (socket.gamePadId !== void 0) {
+      if (socket.gamePadId !== void 0) {
         return hub.disconnectGamepad(socket.gamePadId, function() {});
-      }*/
+      }
     });
     socket.on('connectGamepad', function() {
       return hub.connectGamepad(function(gamePadId) {
